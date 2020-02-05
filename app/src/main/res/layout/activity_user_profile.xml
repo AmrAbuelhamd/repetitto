@@ -6,4 +6,313 @@
     android:layout_height="match_parent"
     tools:context=".UserProfileActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_profile"
+        app:layout_constraintBottom_toTopOf="@+id/nested_scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            tools:context=".UserProfileActivity">
+
+            <TextView
+                android:id="@+id/course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/fakultet" />
+
+            <ImageButton
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Avatar"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Email:"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Телефон:"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Факультет:"
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/fakultet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Курс:"
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="407dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/course" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Предметы"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Математика"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:text="Математика"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/История"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:checked="true"
+                    android:text="История"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Информатика"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:text="Информатика"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Химия"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:text="Химия"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Дискретная_математика"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:checked="true"
+                    android:text="Дискретная математика"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Психология"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:height="10dp"
+                    android:checkable="false"
+                    android:text="Психология"
+                    android:textColor="@color/design_default_color_background"
+                    app:checkedIcon="@color/colorAccent"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/Все"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Показать все предметы"
+                    app:checkedIconVisible="false" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="408dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Отзывы"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:numStars="5"
+                android:rating="3.5"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toStartOf="@+id/rateText" />
+
+            <TextView
+                android:id="@+id/rateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="3.5"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
