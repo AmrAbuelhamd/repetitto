@@ -1,11 +1,12 @@
-package com.blogspot.soyamr.repetitto
+package com.blogspot.soyamr.repetitto.views
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.blogspot.soyamr.repetitto.R
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : AppCompatActivity() {
 
@@ -17,21 +18,14 @@ class UserProfileActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
 
 
-        val currentId = intent.extras?.get("CURRENT_USER") as Int
-        val targetId = intent.extras?.get("TARGET_USER") as Int
+        val currentId = intent.extras?.get("teacherId") as Int
 
-        val user: TestUser = TestActivity().users[targetId]
+        findViewById<TextView>(R.id.textView12).text = currentId.toString()
+        //make retrofit call and recieve his data to show it to the user
 
-
-
-        changeChipsVisibility(findViewById(R.id.Математика))
-        changeChipsVisibility(findViewById(R.id.История))
-        changeChipsVisibility(findViewById(R.id.Информатика))
-        changeChipsVisibility(findViewById(R.id.Химия))
-        changeChipsVisibility(findViewById(R.id.Дискретная_математика))
-        changeChipsVisibility(findViewById(R.id.Психология))
     }
 
     fun changeChipsVisibility(v: View){

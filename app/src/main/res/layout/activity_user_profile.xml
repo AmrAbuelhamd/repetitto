@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfileActivity">
+    tools:context=".views.UserProfileActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
-            tools:context=".UserProfileActivity">
+            tools:context=".views.UserProfileActivity">
 
             <TextView
                 android:id="@+id/course"

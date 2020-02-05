@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">repetitto</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+
+    <string name="text_subj">Subjects</string>
+    <string name="text_course">Course</string>
+    <string name="btn1">Math</string>
+    <string name="btn2">English</string>
+    <string name="btn3">Physics</string>
+    <string name="btn4">Chemistry</string>
+    <string name="btn5">First</string>
+    <string name="btn6">Second</string>
+    <string name="btn7">Third</string>
+    <string name="btn8">Fourth</string>
+    <string name="text_price">Price</string>
+
+    <string name="name">UserName</string>
+    <string name="mail">e-mail</string>
+    <string name="pass">password</string>
+    <string name="faculty">faculty</string>
+    <string name="course">course</string>
+    <string name="teacher">Teacher  </string>
+    <string name="registration">Sign up</string>
+    <string name="registration1">sign in</string>
+
+
+    <string-array name="courses">
+        <item>First</item>
+        <item>Second</item>
+        <item>Third</item>
+        <item>Fourth</item>
+    </string-array>
 </resources>
