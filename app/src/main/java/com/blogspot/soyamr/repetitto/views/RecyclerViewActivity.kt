@@ -4,8 +4,10 @@ package com.blogspot.soyamr.repetitto.views
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,29 +15,39 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blogspot.soyamr.repetitto.Constants
 import com.blogspot.soyamr.repetitto.R
-import com.blogspot.soyamr.repetitto.model.Teachers
+import com.blogspot.soyamr.repetitto.RetrofitPojo.FilterParameter
+import com.blogspot.soyamr.repetitto.RetrofitPojo.User
+import com.blogspot.soyamr.repetitto.RetrofitPojo.UserById
+import com.blogspot.soyamr.repetitto.RetrofitSingleton
 import com.blogspot.soyamr.repetitto.model.TecherRecyclerViewAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
-import java.util.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecyclerViewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    var teacherRecyclerView: RecyclerView? = null
+
     private var mAdapter: RecyclerView.Adapter<*>? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
-    val context: Context = this
+    var dataArrayList: MutableList<User> = ArrayList()
+    //private var mQuestions: MutableList<Question> = ArrayList()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+//        val fab = findViewById<FloatingActionButton>(R.id.fab)
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+//        }
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -43,41 +55,96 @@ class RecyclerViewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         drawer.addDrawerListener(toggle)
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener(this)
+
+        //get the current user data from server
+        getCurrentUserInfo()
         //start of initializing the recyclerView
-        teacherRecyclerView = findViewById(R.id.teacher_recycler_view)
         initializeTheTecherRecyclerView()
+        getUsersListFromServer()
+    }
+
+    private fun getCurrentUserInfo() {
+        val sharedPreference = getSharedPreferences(Constants.prefName, Context.MODE_PRIVATE)
+        val userId: Int? = sharedPreference.getInt(Constants.userId, -1)
+        val userToken: String? = sharedPreference.getString(Constants.token, "null")
+        Log.v("amor", "id: " + userId)
+        Log.v("amor", "token: " + userToken)
+
+        RetrofitSingleton.retrofitObject
+                .getCurrentUser(userId.toString(), userToken).enqueue(object : retrofit2.Callback<UserById> {
+                    override fun onFailure(call: Call<UserById>, t: Throwable) {
+                        Toast.makeText(this@RecyclerViewActivity, "something wentWrong", Toast.LENGTH_LONG).show()
+                        return
+                    }
+
+                    override fun onResponse(call: Call<UserById>, response: Response<UserById>) {
+                        var userById: UserById? = response.body()
+                        fillCurrentUserProfile(userById)
+                    }
+                })
+    }
+
+    private fun fillCurrentUserProfile(userById: UserById?) {
+        //todo fill the user data
+        userFirstName.text = userById?.firstName
+        textView.text = userById?.email
+        Log.v("amor", "first: " + userById?.firstName)
+
     }
 
     fun initializeTheTecherRecyclerView() {
-        val dataArrayList = ArrayList<Teachers>()
-        //todo mkae retrofit call and recieve list of teachers
-        //todo then connect it with recyclerView
-        dataArrayList.add(Teachers("android", "programing", 150, 1))
-        dataArrayList.add(Teachers("anghhdroid", "programing", 150, 2))
-        dataArrayList.add(Teachers("andrfsoid", "programing", 150, 3))
-        dataArrayList.add(Teachers("anghfsdhdroid", "programing", 150, 4))
-        dataArrayList.add(Teachers("andrfsoid", "prografsdming", 150, 5))
-        dataArrayList.add(Teachers("anddhroid", "programing", 150, 5))
-        dataArrayList.add(Teachers("android", "prografsdming", 150, 6))
-        dataArrayList.add(Teachers("andhdfroid", "programing", 150, 7))
-        dataArrayList.add(Teachers("andgfsdroid", "profsdgraming", 150, 8))
-        dataArrayList.add(Teachers("android", "programing", 150, 9))
-        dataArrayList.add(Teachers("andgsroid", "profsdgraming", 150, 10))
-        dataArrayList.add(Teachers("android", "progrsfdaming", 150, 11))
-        dataArrayList.add(Teachers("andsdfroid", "prfsdograming", 150, 12))
-        dataArrayList.add(Teachers("android", "programing", 15013, 13))
-        teacherRecyclerView!!.setHasFixedSize(true)
+
+        teacher_recycler_view!!.setHasFixedSize(true)
         // use a linear layout manager
         mLayoutManager = LinearLayoutManager(this)
-        teacherRecyclerView!!.layoutManager = mLayoutManager
+        teacher_recycler_view!!.layoutManager = mLayoutManager
         //specify an adapter and creating on click listener for each obj
         mAdapter = TecherRecyclerViewAdapter(dataArrayList) { v, position ->
-            val intent = Intent(context, UserProfileActivity::class.java).apply {
+            val intent = Intent(this, UserProfileActivity::class.java).apply {
                 putExtra("teacherId", dataArrayList[position].id)
             }
             startActivity(intent)
         }
-        teacherRecyclerView!!.adapter = mAdapter
+        teacher_recycler_view!!.adapter = mAdapter
+    }
+
+    fun getUsersListFromServer() {
+        Log.e("yes", FilterParameter.limit.toString())
+        RetrofitSingleton.retrofitObject.getUsersUsingFilter(FilterParameter.onlyTeacher
+                , FilterParameter.course
+                , FilterParameter.limit
+                , FilterParameter.search
+                , FilterParameter.faculty
+                , FilterParameter.subject).enqueue(object : Callback<List<User>> {
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Toast.makeText(this@RecyclerViewActivity, "something wentWrong"
+                        + " " + t.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                val users: List<User> = response.body().orEmpty()
+
+//                mAdapter = TecherRecyclerViewAdapter(users) { v, position ->
+//                    val intent = Intent(context, UserProfileActivity::class.java).apply {
+//                        putExtra("teacherId", users[position].id)
+//                    }
+//                    startActivity(intent)
+//                }
+//                teacherRecyclerView!!.adapter = mAdapter
+//                mAdapter?.notifyDataSetChanged()
+
+                if (users != null) {
+                    dataArrayList.clear()
+                    dataArrayList.addAll(users)
+                    mAdapter?.notifyDataSetChanged()
+                    Log.v("amor", "users is not null")
+                    //Log.v("amor","fisrst user= "+dataArrayList[0].lastName)
+                } else {
+                    Log.v("amor", "users is null")
+                }
+
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -85,7 +152,8 @@ class RecyclerViewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            finish();
+            moveTaskToBack(true)
         }
     }
 
@@ -102,8 +170,46 @@ class RecyclerViewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             val profileIntent = Intent(this, SearchFiltersActivity::class.java)
             startActivity(profileIntent)
             return true
+        } else if (id == R.id.action_logout) {
+            disableTokenFromServer()
+//            val profileIntent = Intent(this, MainActivity::class.java)
+//            startActivity(profileIntent)
+            return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun disableTokenFromServer() {
+        //it works in second time only!!!
+
+        val sharedPreference = getSharedPreferences(Constants.prefName, Context.MODE_PRIVATE)
+        val token: String? = sharedPreference.getString(Constants.token, "")
+
+
+        RetrofitSingleton.retrofitObject.logOut(token).enqueue(object : Callback<Unit> {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Toast.makeText(this@RecyclerViewActivity, "something wentWrong"
+                        + " " + t.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>?) {
+                deleteTheUserIdAndToken()
+                openSignInActivity()
+            }
+        })
+    }
+
+    private fun openSignInActivity() {
+        val profileIntent = Intent(this, MainActivity::class.java)
+        startActivity(profileIntent)
+    }
+
+    private fun deleteTheUserIdAndToken() {
+        val sharedPreference = getSharedPreferences(Constants.prefName, Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putInt(Constants.userId, -1)
+        editor.putString(Constants.token, "")
+        editor.apply()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean { // Handle navigation view item clicks here.
@@ -119,4 +225,6 @@ class RecyclerViewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
+
 }

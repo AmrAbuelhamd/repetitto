@@ -5,7 +5,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Filters</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -27,7 +27,7 @@
     <string name="btn8">Fourth</string>
     <string name="text_price">Price</string>
 
-    <string name="name">UserName</string>
+    <string name="name">First Name</string>
     <string name="mail">e-mail</string>
     <string name="pass">password</string>
     <string name="faculty">faculty</string>
@@ -35,7 +35,22 @@
     <string name="teacher">Teacher  </string>
     <string name="registration">Sign up</string>
     <string name="registration1">sign in</string>
+    <string name="action_logout">log out</string>
 
+    <!--subjects-->
+
+    <string name="_9">Матан</string>
+    <string name="_10">Философия</string>
+    <string name="_11">Sabaton</string>
+    <string name="_12">Теория автоматов</string>
+    <string name="_13">Математическая статистика</string>
+    <string name="_14">Моделирование и анализ бизнес процессов</string>
+    <string name="_15">Объектно-ориентированное программирование</string>
+    <string name="_16">Функциональное программирование</string>
+    <string name="_17">Операционные системы и сети</string>
+    <string name="_18">Организация баз данных</string>
+    <string name="_19">Английский язык</string>
+    <string name="_20">"Линейная алгебра</string>
 
     <string-array name="courses">
         <item>First</item>
